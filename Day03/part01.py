@@ -24,51 +24,54 @@ class Coordinate(object):
 
 def move(start, movement):
     if movement.startswith('R'):
-        partial_path, new_start = move_right(start, movement[1:])
+        return move_right(start, movement[1:])
     elif movement.startswith('L'):
-        partial_path, new_start = move_left(start, movement[1:])
+        return move_left(start, movement[1:])
     elif movement.startswith('U'):
-        partial_path, new_start = move_up(start, movement[1:])
+        return move_up(start, movement[1:])
     elif movement.startswith('D'):
-        partial_path, new_start = move_down(start, movement[1:])
-    return partial_path, new_start
+        return move_down(start, movement[1:])
 
 
 def move_right(start, movement):
     partial_path = set()
     current_position = start
     for x in range(int(movement)):
-        new_position = Coordinate((current_position.get_x()+1), current_position.get_y())
+        new_position = Coordinate((current_position.get_x() + 1), current_position.get_y())
         partial_path.add(new_position)
         current_position = new_position
     return partial_path, current_position
+
 
 def move_left(start, movement):
     partial_path = set()
     current_position = start
     for x in range(int(movement)):
-        new_position = Coordinate((current_position.get_x()-1), current_position.get_y())
+        new_position = Coordinate((current_position.get_x() - 1), current_position.get_y())
         partial_path.add(new_position)
         current_position = new_position
     return partial_path, current_position
+
 
 def move_up(start, movement):
     partial_path = set()
     current_position = start
     for x in range(int(movement)):
-        new_position = Coordinate((current_position.get_x()), current_position.get_y()+1)
+        new_position = Coordinate((current_position.get_x()), current_position.get_y() + 1)
         partial_path.add(new_position)
         current_position = new_position
     return partial_path, current_position
+
 
 def move_down(start, movement):
     partial_path = set()
     current_position = start
     for x in range(int(movement)):
-        new_position = Coordinate((current_position.get_x()), current_position.get_y()-1)
+        new_position = Coordinate((current_position.get_x()), current_position.get_y() - 1)
         partial_path.add(new_position)
         current_position = new_position
     return partial_path, current_position
+
 
 def manhattan(coordinate):
     return abs(coordinate.get_x()) + abs(coordinate.get_y())
@@ -105,8 +108,6 @@ if __name__ == '__main__':
     intersection_points = path_one.intersection(path_two)
     intersection_points.remove(starting_point)
     # print(intersection_points)
-    distances = [ manhattan(intersection) for intersection in intersection_points ]
+    distances = [manhattan(intersection) for intersection in intersection_points]
     distances.sort()
-    print(distances[0])
-
-
+    print("The Manhattan distance from the central port to the closest intersection is", distances[0])
